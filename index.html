@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>パズドラ ダメージ計算ツール</title>
+<link href="./style.css" rel="stylesheet" type="text/css" />
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="tool.js"></script>
+<script>
+  window.onload = boot;
+</script>
+</head>
+<body>
+<h1>パズドラ ダメージ計算ツール</h1>
+<div style="float:left;">
+<table class="input_table">
+  <tr><th colspan=7>パーティー情報入力</th></tr>
+  <tr>
+    <td></td>
+    <td>1体目</td>
+    <td>2体目</td>
+    <td>3体目</td>
+    <td>4体目</td>
+    <td>5体目</td>
+    <td>6体目</td>
+  </tr>
+  <tr>
+    <th>主属性</th>
+    <td><div id="_main0"></div></td>
+    <td><div id="_main1"></div></td>
+    <td><div id="_main2"></div></td>
+    <td><div id="_main3"></div></td>
+    <td><div id="_main4"></div></td>
+    <td><div id="_main5"></div></td>
+  </tr>
+  <tr>
+    <th>副属性</th>
+    <td><div id="_sub0"></div></td>
+    <td><div id="_sub1"></div></td>
+    <td><div id="_sub2"></div></td>
+    <td><div id="_sub3"></div></td>
+    <td><div id="_sub4"></div></td>
+    <td><div id="_sub5"></div></td>
+  </tr>
+  <tr>
+    <th>主タイプ</th>
+    <td><div id="_mtype0"></div></td>
+    <td><div id="_mtype1"></div></td>
+    <td><div id="_mtype2"></div></td>
+    <td><div id="_mtype3"></div></td>
+    <td><div id="_mtype4"></div></td>
+    <td><div id="_mtype5"></div></td>
+  </tr>
+  <tr>
+    <th>副タイプ</th>
+    <td><div id="_stype0"></div></td>
+    <td><div id="_stype1"></div></td>
+    <td><div id="_stype2"></div></td>
+    <td><div id="_stype3"></div></td>
+    <td><div id="_stype4"></div></td>
+    <td><div id="_stype5"></div></td>
+  </tr>
+  <tr>
+    <th>攻撃力</th>
+    <td><input type="number" id="atk0"></input></td>
+    <td><input type="number" id="atk1"></input></td>
+    <td><input type="number" id="atk2"></input></td>
+    <td><input type="number" id="atk3"></input></td>
+    <td><input type="number" id="atk4"></input></td>
+    <td><input type="number" id="atk5"></input></td>
+  </tr>
+</table>
+
+<table class="input_table">
+  <tr>
+    <th colspan=8>属性・タイプエンハンス倍率</th>
+  </tr>
+  <tr>
+    <td colspan=8 align=center>チーム全体：<input type="number" id="skl"></input></td>
+  </tr>
+  <tr>
+    <td>火</td>
+    <td>水</td>
+    <td>木</td>
+    <td>光</td>
+    <td>闇</td>
+    <td>神</td>
+    <td>ドラゴン</td>
+    <td>悪魔</td>
+  </tr>
+  <tr>
+    <td><input type="number" id="skl0"></input></td>
+    <td><input type="number" id="skl1"></input></td>
+    <td><input type="number" id="skl2"></input></td>
+    <td><input type="number" id="skl3"></input></td>
+    <td><input type="number" id="skl4"></input></td>
+    <td><input type="number" id="skl5"></input></td>
+    <td><input type="number" id="skl6"></input></td>
+    <td><input type="number" id="skl7"></input></td>
+  </tr>
+  <tr>
+    <td>バランス</td>
+    <td>攻撃</td>
+    <td>体力</td>
+    <td>回復</td>
+    <td>進化用</td>
+    <td>能力覚醒</td>
+    <td>強化合成</td>
+    <td>特別保護</td>
+  </tr>
+  <tr>
+    <td><input type="number" id="skl8"></input></td>
+    <td><input type="number" id="skl9"></input></td>
+    <td><input type="number" id="skl10"></input></td>
+    <td><input type="number" id="skl11"></input></td>
+    <td><input type="number" id="skl12"></input></td>
+    <td><input type="number" id="skl13"></input></td>
+    <td><input type="number" id="skl14"></input></td>
+    <td><input type="number" id="skl15"></input></td>
+  </tr>
+</table>
+
+<table class="input_table">
+  <tr>
+    <th colspan=6>列強化の個数</th>
+  </tr>
+  <tr>
+    <td>火</td>
+    <td>水</td>
+    <td>木</td>
+    <td>光</td>
+    <td>闇</td>
+  </tr>
+  <tr>
+    <td><input type="number" id="enh0"></input></td>
+    <td><input type="number" id="enh1"></input></td>
+    <td><input type="number" id="enh2"></input></td>
+    <td><input type="number" id="enh3"></input></td>
+    <td><input type="number" id="enh4"></input></td>
+  </tr>
+</table>
+
+
+</div>
+<div>
+
+<table class="input_table">
+  <tr>
+    <th colspan=6>消すドロップの個数</th>
+  </tr>
+  <tr>
+    <td colspan=6>
+    ※属性ごとに、消すドロップの個数を入力してください <br>
+    ※横一列が含まれる消し方の場合は、チェックボックスにチェックを入れてください
+    </td>
+  </tr>
+  <tr>
+    <td>火</td>
+    <td>水</td>
+    <td>木</td>
+    <td>光</td>
+    <td>闇</td>
+    <td>回復</td>
+  </tr>
+  <tr>
+    <td><input type="checkbox" id="enh00"/><input type="number" id="drop00"></input></td>
+    <td><input type="checkbox" id="enh10"/><input type="number" id="drop10"></input></td>
+    <td><input type="checkbox" id="enh20"/><input type="number" id="drop20"></input></td>
+    <td><input type="checkbox" id="enh30"/><input type="number" id="drop30"></input></td>
+    <td><input type="checkbox" id="enh40"/><input type="number" id="drop40"></input></td>
+    <td><input type="number" id="drop50"></input></td>
+  </tr>
+  <tr>
+    <td><input type="checkbox" id="enh01"/><input type="number" id="drop01"></input></td>
+    <td><input type="checkbox" id="enh11"/><input type="number" id="drop11"></input></td>
+    <td><input type="checkbox" id="enh21"/><input type="number" id="drop21"></input></td>
+    <td><input type="checkbox" id="enh31"/><input type="number" id="drop31"></input></td>
+    <td><input type="checkbox" id="enh41"/><input type="number" id="drop41"></input></td>
+    <td><input type="number" id="drop51"></input></td>
+  </tr>
+  <tr>
+    <td><input type="checkbox" id="enh02"/><input type="number" id="drop02"></input></td>
+    <td><input type="checkbox" id="enh12"/><input type="number" id="drop12"></input></td>
+    <td><input type="checkbox" id="enh22"/><input type="number" id="drop22"></input></td>
+    <td><input type="checkbox" id="enh32"/><input type="number" id="drop32"></input></td>
+    <td><input type="checkbox" id="enh42"/><input type="number" id="drop42"></input></td>
+    <td><input type="number" id="drop52"></input></td>
+  </tr>
+  <tr>
+    <td><input type="checkbox" id="enh03"/><input type="number" id="drop03"></input></td>
+    <td><input type="checkbox" id="enh13"/><input type="number" id="drop13"></input></td>
+    <td><input type="checkbox" id="enh23"/><input type="number" id="drop23"></input></td>
+    <td><input type="checkbox" id="enh33"/><input type="number" id="drop33"></input></td>
+    <td><input type="checkbox" id="enh43"/><input type="number" id="drop43"></input></td>
+    <td><input type="number" id="drop53"></input></td>
+  </tr>
+  <tr>
+    <td><input type="checkbox" id="enh04"/><input type="number" id="drop04"></input></td>
+    <td><input type="checkbox" id="enh14"/><input type="number" id="drop14"></input></td>
+    <td><input type="checkbox" id="enh24"/><input type="number" id="drop24"></input></td>
+    <td><input type="checkbox" id="enh34"/><input type="number" id="drop34"></input></td>
+    <td><input type="checkbox" id="enh44"/><input type="number" id="drop44"></input></td>
+    <td><input type="number" id="drop54"></input></td>
+  </tr>
+  <tr>
+    <td><input type="checkbox" id="enh05"/><input type="number" id="drop05"></input></td>
+    <td><input type="checkbox" id="enh15"/><input type="number" id="drop15"></input></td>
+    <td><input type="checkbox" id="enh25"/><input type="number" id="drop25"></input></td>
+    <td><input type="checkbox" id="enh35"/><input type="number" id="drop35"></input></td>
+    <td><input type="checkbox" id="enh45"/><input type="number" id="drop45"></input></td>
+    <td><input type="number" id="drop55"></input></td>
+  </tr>
+  <tr>
+    <td><input type="checkbox" id="enh06"/><input type="number" id="drop06"></input></td>
+    <td><input type="checkbox" id="enh16"/><input type="number" id="drop16"></input></td>
+    <td><input type="checkbox" id="enh26"/><input type="number" id="drop26"></input></td>
+    <td><input type="checkbox" id="enh36"/><input type="number" id="drop36"></input></td>
+    <td><input type="checkbox" id="enh46"/><input type="number" id="drop46"></input></td>
+    <td><input type="number" id="drop56"></input></td>
+  </tr>
+  <tr>
+    <td><input type="checkbox" id="enh07"/><input type="number" id="drop07"></input></td>
+    <td><input type="checkbox" id="enh17"/><input type="number" id="drop17"></input></td>
+    <td><input type="checkbox" id="enh27"/><input type="number" id="drop27"></input></td>
+    <td><input type="checkbox" id="enh37"/><input type="number" id="drop37"></input></td>
+    <td><input type="checkbox" id="enh47"/><input type="number" id="drop47"></input></td>
+    <td><input type="number" id="drop57"></input></td>
+  </tr>
+  <tr>
+    <td><input type="checkbox" id="enh08"/><input type="number" id="drop08"></input></td>
+    <td><input type="checkbox" id="enh18"/><input type="number" id="drop18"></input></td>
+    <td><input type="checkbox" id="enh28"/><input type="number" id="drop28"></input></td>
+    <td><input type="checkbox" id="enh38"/><input type="number" id="drop38"></input></td>
+    <td><input type="checkbox" id="enh48"/><input type="number" id="drop48"></input></td>
+    <td><input type="number" id="drop58"></input></td>
+  </tr>
+  <tr>
+    <td><input type="checkbox" id="enh09"/><input type="number" id="drop09"></input></td>
+    <td><input type="checkbox" id="enh19"/><input type="number" id="drop19"></input></td>
+    <td><input type="checkbox" id="enh29"/><input type="number" id="drop29"></input></td>
+    <td><input type="checkbox" id="enh39"/><input type="number" id="drop39"></input></td>
+    <td><input type="checkbox" id="enh49"/><input type="number" id="drop49"></input></td>
+    <td><input type="number" id="drop59"></input></td>
+  </tr>
+</table>
+
+</div>
+
+<hr style="clear:both">
+
+<div style="float: left;">
+<table class="input_table">
+  <tr>
+    <th colspan=7>モンスター別攻撃力</th>
+  </tr>
+  <tr>
+    <td></td>
+    <td>1体目</td>
+    <td>2体目</td>
+    <td>3体目</td>
+    <td>4体目</td>
+    <td>5体目</td>
+    <td>6体目</td>
+  </tr>
+  <tr>
+    <th>主属性</th>
+    <td><div id="mdmg0"></div></td>
+    <td><div id="mdmg1"></div></td>
+    <td><div id="mdmg2"></div></td>
+    <td><div id="mdmg3"></div></td>
+    <td><div id="mdmg4"></div></td>
+    <td><div id="mdmg5"></div></td>
+  </tr>
+  <tr>
+    <th>副属性</th>
+    <td><div id="sdmg0"></div></td>
+    <td><div id="sdmg1"></div></td>
+    <td><div id="sdmg2"></div></td>
+    <td><div id="sdmg3"></div></td>
+    <td><div id="sdmg4"></div></td>
+    <td><div id="sdmg5"></div></td>
+  </tr>
+</table>
+</div>
+
+<div style="float:left;">
+<table class="input_table">
+  <tr>
+    <th colspan=6>属性別攻撃力</th>
+  </tr>
+  <tr>
+    <td>火</td>
+    <td>水</td>
+    <td>木</td>
+    <td>光</td>
+    <td>闇</td>
+    <td>合計</td>
+  </tr>
+  <tr>
+    <td><div id="admg0"></div></td>
+    <td><div id="admg1"></div></td>
+    <td><div id="admg2"></div></td>
+    <td><div id="admg3"></div></td>
+    <td><div id="admg4"></div></td>
+    <td><div id="admg5"></div></td>
+  </tr>
+
+</table>
+</div>
+
+</body>
+</html>

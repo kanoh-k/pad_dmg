@@ -1,0 +1,11 @@
+.input_table {
+    padding: 20px;
+}
+
+.input_table th,td {
+    border: 1px black solid;
+}
+
+.input_table input[type="number"] {
+    width: 50px;
+}
