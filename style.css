@@ -9,3 +9,23 @@
 .input_table input[type="number"] {
     width: 50px;
 }
+
+.bg_red {
+	background: lightcoral;
+}
+
+.bg_blue {
+	background: lightskyblue;
+}
+
+.bg_green {
+	background: lightgreen;
+}
+
+.bg_yellow {
+	background: khaki;
+}
+
+.bg_purple {
+	background: mediumpurple;
+}

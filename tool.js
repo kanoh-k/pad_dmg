@@ -1,8 +1,10 @@
 // input
 var main, sub, atk, enh, drop, line, mtype, stype, tskl, askl, baseEnh;
 
-// output div
-var mdmg, sdmg, admg;
+// output
+var mdmg, sdmg, admg, totalDmg;
+
+var colorNames = ['red', 'blue', 'green', 'yellow', 'purple'];
 
 function boot () {
     main = new Array(6); // main attr
@@ -31,7 +33,7 @@ function boot () {
     selector.append('<option value="2">木</option>');
     selector.append('<option value="3">光</option>');
     selector.append('<option value="4">闇</option>');
-    selector.change(calc);
+    selector.change(updateDmg);
 
     for (var i = 0; i < 6; i++) {
         var m = $("#_main" + i);
@@ -60,7 +62,7 @@ function boot () {
     tselector.append('<option value="8">能力覚醒</option>');
     tselector.append('<option value="9">強化合成</option>');
     tselector.append('<option value="10">特別保護</option>');
-    tselector.change(calc);
+    tselector.change(updateDmg);
 
     for (var i = 0; i < 6; i++) {
         var m = $("#_mtype" + i);
@@ -76,12 +78,13 @@ function boot () {
     }
 
     $("input").each(function () {
-        $(this).change(calc);
+        $(this).change(updateDmg);
     });
 }
 
 
-function calc () {
+function updateDmg () {
+    // read input values
     for (var i = 0; i < 6; i++) {
         main[i] = parseInt($("#main" + i).val());
         sub[i] = parseInt($("#sub" + i).val());
@@ -102,7 +105,7 @@ function calc () {
         if (isNaN(tskl[i])) { tskl[i] = 1; }
     }
 
-    for (var i = 0; i < 5; i++) {
+    for (var i = 0; i < 5; i++) { 
         admg[i] = 0;
         enh[i] = parseInt($("#enh" + i).val());
         if (isNaN(enh[i])) { enh[i] = 0; }
@@ -117,7 +120,36 @@ function calc () {
     baseEnh =  parseInt($("#skl").val());
     if (isNaN(baseEnh)) { baseEnh = 1; }
 
-    // count combo
+    // Calculate damages and set them to output variables
+    calc();
+
+    // set results to <input>
+    for (var i = 0; i < 6; i++) {
+        if (isNaN(mdmg[i])) { mdmg[i] = ''; };
+        if (isNaN(sdmg[i])) { sdmg[i] = ''; };
+        
+        $("#mdmg" + i).text(mdmg[i]);
+        $("#sdmg" + i).text(sdmg[i]);
+    }
+    for (var i = 0; i < 5; i++) {
+        $("#admg" + i).text(admg[i]);
+    }
+    $("#admg5").text(totalDmg);
+
+    // change sel color
+    for (var i = 0; i < 6; i++) {
+        $("td.mtd" + (i + 1)).each(function () {
+            $(this).attr("class", "mtd" + (i + 1) + " bg_" + attr2colorName(main[i]));
+        });
+       $("td.std" + (i + 1)).each(function () {
+            $(this).attr("class", "std" + (i + 1) + " bg_" + attr2colorName(sub[i]));
+        });
+ 
+    }
+}
+
+function calc() {
+        // count combo
     var combo = 0;
     for (var i = 0; i < 6; i++) {
         for (var j = 0; j < 10; j++) {
@@ -183,19 +215,20 @@ function calc () {
             
             admg[k] += sdmg[i];
         }
-
-        if (isNaN(mdmg[i])) { mdmg[i] = ''; };
-        if (isNaN(sdmg[i])) { sdmg[i] = ''; };
-        
-        $("#mdmg" + i).text(mdmg[i]);
-        $("#sdmg" + i).text(sdmg[i]);
     }
 
-    var totalDmg = 0;
+    totalDmg = 0;
     for (var i = 0; i < 5; i++) {
         admg[i] = Math.round(admg[i]);
         totalDmg += admg[i];
-        $("#admg" + i).text(admg[i]);
     }
-    $("#admg5").text(totalDmg);
+}
+
+function attr2colorName (att) {
+    var res;
+    att = Math.floor(att);
+    if (att >= 0 && att < 5) {
+        res = colorNames[att];
+    }
+    return res;
 }

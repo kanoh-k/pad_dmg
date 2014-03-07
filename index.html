@@ -7,10 +7,10 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script src="tool.js"></script>
 <script>
-  window.onload = boot;
-</script>
-<!-- Google Analytics -->
-<script>
+  window.onload = function () {
+  boot ();
+
+  // google analytics
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -18,6 +18,10 @@
 
   ga('create', 'UA-41234016-1', 'sakura.ne.jp');
   ga('send', 'pageview');
+};
+</script>
+<!-- Google Analytics -->
+<script>
 </script>
 </head>
 <body>
@@ -43,21 +47,21 @@
   </tr>
   <tr>
     <th>主属性</th>
-    <td><div id="_main0"></div></td>
-    <td><div id="_main1"></div></td>
-    <td><div id="_main2"></div></td>
-    <td><div id="_main3"></div></td>
-    <td><div id="_main4"></div></td>
-    <td><div id="_main5"></div></td>
+    <td class="mtd1"><div id="_main0"></div></td>
+    <td class="mtd2"><div id="_main1"></div></td>
+    <td class="mtd3"><div id="_main2"></div></td>
+    <td class="mtd4"><div id="_main3"></div></td>
+    <td class="mtd5"><div id="_main4"></div></td>
+    <td class="mtd6"><div id="_main5"></div></td>
   </tr>
   <tr>
     <th>副属性</th>
-    <td><div id="_sub0"></div></td>
-    <td><div id="_sub1"></div></td>
-    <td><div id="_sub2"></div></td>
-    <td><div id="_sub3"></div></td>
-    <td><div id="_sub4"></div></td>
-    <td><div id="_sub5"></div></td>
+    <td class="std1"><div id="_sub0"></div></td>
+    <td class="std2"><div id="_sub1"></div></td>
+    <td class="std3"><div id="_sub2"></div></td>
+    <td class="std4"><div id="_sub3"></div></td>
+    <td class="std5"><div id="_sub4"></div></td>
+    <td class="std6"><div id="_sub5"></div></td>
   </tr>
   <tr>
     <th>主タイプ</th>
@@ -282,22 +286,22 @@
   </tr>
   <tr>
     <th>主属性</th>
-    <td><div id="mdmg0"></div></td>
-    <td><div id="mdmg1"></div></td>
-    <td><div id="mdmg2"></div></td>
-    <td><div id="mdmg3"></div></td>
-    <td><div id="mdmg4"></div></td>
-    <td><div id="mdmg5"></div></td>
+    <td class="mtd1"><div id="mdmg0"></div></td>
+    <td class="mtd2"><div id="mdmg1"></div></td>
+    <td class="mtd3"><div id="mdmg2"></div></td>
+    <td class="mtd4"><div id="mdmg3"></div></td>
+    <td class="mtd5"><div id="mdmg4"></div></td>
+    <td class="mtd6"><div id="mdmg5"></div></td>
     <td rowspan=2><div id="admg5"></div></td>
   </tr>
   <tr>
     <th>副属性</th>
-    <td><div id="sdmg0"></div></td>
-    <td><div id="sdmg1"></div></td>
-    <td><div id="sdmg2"></div></td>
-    <td><div id="sdmg3"></div></td>
-    <td><div id="sdmg4"></div></td>
-    <td><div id="sdmg5"></div></td>
+    <td class="std1"><div id="sdmg0"></div></td>
+    <td class="std2"><div id="sdmg1"></div></td>
+    <td class="std3"><div id="sdmg2"></div></td>
+    <td class="std4"><div id="sdmg3"></div></td>
+    <td class="std5"><div id="sdmg4"></div></td>
+    <td class="std6"><div id="sdmg5"></div></td>
   </tr>
 </table>
 </div>
@@ -308,18 +312,18 @@
     <th colspan=5>属性別攻撃力</th>
   </tr>
   <tr>
-    <td>火</td>
-    <td>水</td>
-    <td>木</td>
-    <td>光</td>
-    <td>闇</td>
+    <td class="bg_red">火</td>
+    <td class="bg_blue">水</td>
+    <td class="bg_green">木</td>
+    <td class="bg_yellow">光</td>
+    <td class="bg_purple">闇</td>
   </tr>
   <tr>
-    <td><div id="admg0"></div></td>
-    <td><div id="admg1"></div></td>
-    <td><div id="admg2"></div></td>
-    <td><div id="admg3"></div></td>
-    <td><div id="admg4"></div></td>
+    <td class="bg_red"><div id="admg0"></div></td>
+    <td class="bg_blue"><div id="admg1"></div></td>
+    <td class="bg_green"><div id="admg2"></div></td>
+    <td class="bg_yellow"><div id="admg3"></div></td>
+    <td class="bg_purple"><div id="admg4"></div></td>
   </tr>
 
 </table>
