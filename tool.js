@@ -269,7 +269,8 @@ function save () {
         baseEnh: data.baseEnh,
         askl: data.askl,
         tskl: data.tskl,
-        enh: data.enh
+        enh: data.enh,
+        teamName: data.teamName
     };
 
     storage.setItem('_' + data.teamName, JSON.stringify(obj));
@@ -296,6 +297,7 @@ function load() {
         data.askl = obj.askl;
         data.tskl = obj.tskl;
         data.enh = obj.enh;
+        data.teamname = obj.teamName;
     }
 
     updateInputForm();
