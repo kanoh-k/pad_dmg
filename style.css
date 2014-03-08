@@ -29,3 +29,12 @@
 .bg_purple {
 	background: mediumpurple;
 }
+
+.btn_container {
+	text-align: center;
+	margin: 5px;
+}
+
+#teamlist li {
+	margin: 5px 0px;
+}

@@ -30,12 +30,37 @@
 <ul>
   <li>自分用に作ったパズドラのダメージ計算用ツールですが、せっかくなので公開します。</li>
   <li>リーダースキルでの倍率、各種エンハンス、覚醒スキルの属性強化に対応しています。</li>
+  <li>セーブすると、パーティの属性、タイプ、攻撃力、エンハンス、列教科の個数の情報が保存されます。ドロップの消し方は保存されません。既に同じ名前のパーティが存在する場合は上書きされます。</li>
   <li>細かい使い方の説明や、ドロップ強化への対応は、もし需要があれば対応するかもしれません。</li>
 </ul>
 </div>
+
+<hr>
+
+<div id="save_container">
+  <table class="input_table">
+    <tr><th colspan=2>パーティー情報のセーブ・ロード</th></tr> 
+    <tr>
+      <th>保存されているパーティー</th>
+      <th>コマンド</th>
+    </tr>
+    <tr>
+      <td><div id="teamlist">なし</span></div></td>
+      <td>
+        <div class="btn_container"><button type="button" onclick="save()">セーブ</button></div>
+        <div class="btn_container"><button type="button" onclick="load()">ロード</button></div>
+        <div class="btn_container"><button type="button" onclick="del()">削除</button></div>
+      </td>
+    </tr>
+  </table>
+  <hr>
+</div>
+
 <div style="float:left;">
 <table class="input_table">
   <tr><th colspan=7>パーティー情報入力</th></tr>
+  <tr><th colspan=7> パーティー名　<input id="team_name"></input>
+  </th></tr>
   <tr>
     <td></td>
     <td>1体目</td>
