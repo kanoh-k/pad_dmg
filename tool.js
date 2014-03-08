@@ -297,7 +297,7 @@ function load() {
         data.askl = obj.askl;
         data.tskl = obj.tskl;
         data.enh = obj.enh;
-        data.teamname = obj.teamName;
+        data.teamName = obj.teamName;
     }
 
     updateInputForm();
